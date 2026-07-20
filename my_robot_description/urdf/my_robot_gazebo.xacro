@@ -21,6 +21,7 @@
   <gazebo>
     <plugin filename="gz-sim-joint-state-publisher-system"
             name="gz::sim::systems::JointStatePublisher">
+      <topic>/world/ros2_world/model/my_robot/joint_state</topic>
       <joint_name>Rueda_izquierda_joint</joint_name>
       <joint_name>Rueda_derecha_joint</joint_name>
       <joint_name>Base_castor_joint</joint_name>
