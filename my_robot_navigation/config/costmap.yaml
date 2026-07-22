@@ -1,0 +1,72 @@
+#Chasis es una caja (linea 89: box size) de:
+#     largo (robot_length): 0.185 m = 18.5 cm
+#     ancho (robot_width): 0.145 m = 14.5 cm
+#  radio = 0.1176 m = 0.118 m
+
+
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 1.0
+      publish_frequency: 1.0
+      global_frame: map #se ancla al frame map (el mundo fijo) porque planifica sobre toda la casa, que no se mueve
+      robot_base_frame: base_footprint
+      use_sim_time: true
+      resolution: 0.05
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.20
+        cost_scaling_factor: 3.0
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: true
+        observation_sources: scan
+        scan:
+          topic: /scan
+          max_obstacle_height: 2.0
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 12.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 12.0
+          obstacle_min_range: 0.0
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_topic: /map
+        subscribe_to_updates: true #por si el mapa cambiara en vivo
+
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      update_frequency: 5.0 #se actualiza a 5Hz (mas rapido)
+      publish_frequency: 2.0
+      global_frame: odom #se ancla a odom porque el local necesita ser suave y continuo para el control en tiempo real,
+      robot_base_frame: base_footprint
+      use_sim_time: true
+      resolution: 0.05
+      rolling_window: true #ventana rodante: el costmap local se mueve con el robot
+      width: 3 #window_size
+      height: 3
+      plugins: ["obstacle_layer", "inflation_layer"]
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.20
+        cost_scaling_factor: 3.0
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: true
+        observation_sources: scan
+        scan:
+          topic: /scan
+          max_obstacle_height: 2.0
+          clearing: true #marcar obstáculos donde el rayo pega (la punta). 
+          marking: true #clearing = limpiar (marcar libre) lo que el rayo atraviesa (el trayecto)
+          data_type: "LaserScan"
+          raytrace_max_range: 12.0 #Sirve para borrar obstaculos viejos: si una caja estaba marcada y la sacaron, 
+                                    #el rayo ahora atraviesa ese lugar y lo "limpia".
+          raytrace_min_range: 0.0
+          obstacle_max_range: 12.0
+          obstacle_min_range: 0.0
