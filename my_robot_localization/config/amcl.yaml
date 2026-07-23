@@ -1,7 +1,3 @@
-map_server:
-  ros__parameters:
-    use_sim_time: true
-
 amcl:
   ros__parameters:
       #configuración general.
