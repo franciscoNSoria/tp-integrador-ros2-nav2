@@ -1,0 +1,19 @@
+<launch>
+  <!-- Declaración de Argumentos de Lanzamiento -->
+  <arg name="use_sim_time" default="true" description="Usar tiempo de simulación (Gazebo/Ignition)"/>
+  <arg name="replanning_frequency" default="1.0" description="Frecuencia de replanificación en Hz"/>
+  <arg name="planner_id" default="GridBased" description="ID del algoritmo del planner de Nav2"/>
+  <arg name="controller_id" default="FollowPath" description="ID del algoritmo del controller de Nav2"/>
+
+  <!-- Nodo Orquestador -->
+  <node package="my_nav_orchestrator" exec="orchestrator_node" name="nav_orchestrator" output="screen">
+    <!-- Parámetros pasados al nodo -->
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <param name="replanning_frequency" value="$(var replanning_frequency)"/>
+    <param name="planner_id" value="$(var planner_id)"/>
+    <param name="controller_id" value="$(var controller_id)"/>
+    <param name="goal_checker_id" value="general_goal_checker"/>
+    <param name="global_frame" value="map"/>
+    <param name="base_frame" value="base_footprint"/>
+  </node>
+</launch>
