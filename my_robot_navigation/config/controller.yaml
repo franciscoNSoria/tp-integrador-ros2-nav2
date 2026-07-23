@@ -9,8 +9,7 @@ controller_server:
     progress_checker_plugins: ["progress_checker"]
     goal_checker_plugins: ["general_goal_checker"]
     # Dos algoritmos registrados a la vez bajo distinto nombre. No hace falta elegir
-    # uno en el launch: el goal de FollowPath tiene un campo "controller_id" que
-    # selecciona cual correr en cada llamada (selección en tiempo de ejecución).
+
     controller_plugins: ["DWB", "RPP"]
 
     progress_checker:
@@ -24,17 +23,11 @@ controller_server:
       xy_goal_tolerance: 0.15
       yaw_goal_tolerance: 0.15
 
-    # DWB: en cada ciclo simula muchas trayectorias cortas (combinaciones de v/w
-    # dentro de los limites de abajo) y puntua cada una con "criticos" (distancia
-    # al path, distancia al goal, alineacion, obstaculos, etc). Se queda con la
-    # mejor puntuada. Mas pesado computacionalmente pero maneja mejor espacios
-    # estrechos porque evalua obstaculos como parte del scoring.
+
     DWB:
       plugin: "dwb_core::DWBLocalPlanner"
       debug_trajectory_details: true
-      # Limites de velocidad/aceleracion: mismos que usariamos con teleop para
-      # este chasis (wheel_radius 0.033m, wheel_separation 0.16m, equivalente a
-      # un TurtleBot3 Burger).
+ 
       min_vel_x: -0.22
       min_vel_y: 0.0
       max_vel_x: 0.22
@@ -72,10 +65,7 @@ controller_server:
       RotateToGoal.slowing_factor: 5.0
       RotateToGoal.lookahead_time: -1.0
 
-    # RPP: geometrico y liviano, no simula trayectorias. Busca sobre el path un
-    # punto ("carrot") a una distancia de lookahead y genera la velocidad angular
-    # necesaria para perseguirlo con un arco circular. Regula la velocidad lineal
-    # segun la curvatura del camino (para no cortar curvas cerradas de golpe).
+    # RPP: geometrico y liviano
     RPP:
       plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
       desired_linear_vel: 0.2

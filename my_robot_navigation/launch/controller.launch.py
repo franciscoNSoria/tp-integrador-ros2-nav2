@@ -7,8 +7,8 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
     nav_dir = get_package_share_directory('my_robot_navigation')
-    # el controller_server arma su propio local_costmap interno, reusamos la
-    # misma config que en 3a (costmap.yaml) para no duplicar parametros
+    # el controller_server arma su propio local_costmap interno
+    
     costmap_params = os.path.join(nav_dir, 'config', 'costmap.yaml')
     controller_params = os.path.join(nav_dir, 'config', 'controller.yaml')
 

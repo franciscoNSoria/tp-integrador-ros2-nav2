@@ -28,32 +28,21 @@ ros2 launch my_robot_navigation planner.launch.py
 ros2 launch my_robot_navigation controller.launch.py
 ```
 
-## Probar el planner con una meta de prueba
+> Atajo: `ros2 launch my_robot_navigation navigation.launch.py` levanta planner + controller
+> juntos en una sola terminal (reemplaza las Terminales 2 y 3 de arriba).
 
-Sin el orquestador 
-
-```bash
-ros2 topic echo /global_costmap/costmap --once --no-arr   # para ver origin/width/height y elegir un punto valido dentro del mapa
-
-ros2 action send_goal /compute_path_to_pose nav2_msgs/action/ComputePathToPose \
-  "{goal: {header: {frame_id: 'map'}, pose: {position: {x: 0.0, y: 0.0}}}}"
-```
-
-Resultado esperado: `error_code: 0` y `Goal finished with status: SUCCEEDED`, con la ruta
-dibujándose en RViz sobre el display `Path` (`/plan`).
-
-
-
-## Probar el controller con un path real (planner + controller encadenados)
+### Terminal 4 — Orquestador
 
 ```bash
-ros2 run my_robot_navigation test_follow_path <x> <y> [DWB|RPP]
-
-# ejemplo: ros2 run my_robot_navigation test_follow_path 1.5 0.0 RPP
+ros2 launch my_robot_navigation orquestador.launch.py
 ```
- `<x> <y>` debe caer **dentro del área ya mapeada** por SLAM sino el planner falla con
-`NO_VALID_PATH`
 
-Resultado : el log muestra `distance_to_goal` bajando en cada feedback, el robot
-se mueve en Gazebo, y publica en `cmd_vel` Termina con `status=4` (SUCCEEDED).
+
+El algoritmo del controller (`DWB`/`RPP`) se elige con el parámetro `controller_id`
+(default `RPP`), configurable en tiempo de ejecución sin recompilar:
+
+```bash
+ros2 param set /orquestador_node controller_id DWB
+```
+
 
