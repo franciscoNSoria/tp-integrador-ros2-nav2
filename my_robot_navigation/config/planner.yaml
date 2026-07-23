@@ -1,16 +1,14 @@
 planner_server:
   ros__parameters:
+    planner_plugins: ["GridBasedAStar", "GridBasedDijkstra"]
     use_sim_time: true
-    expected_planner_frequency: 20.0
-    planner_plugins: ["GridBased"]
-    GridBased:
-      plugin: "nav2_navfn_planner::NavfnPlanner"
-      # Dijkstra (use_astar: false) explora uniformemente en todas direcciones desde el punto
-      # de partida hasta garantizar el camino mas corto -> mas nodos visitados, un poco mas lento,
-      # pero no necesita heuristica.
-      # A* (use_astar: true) prioriza expandir hacia el objetivo usando la heuristica de distancia
-      # -> mismo resultado optimo, pero explora menos nodos y es mas rapido, sobre todo cuanto mas
-      # grande sea el mapa.
+    
+    GridBasedAStar:
+      plugin: "nav2_navfn_planner/NavfnPlanner"
       use_astar: true
-      allow_unknown: true
+      tolerance: 0.5
+
+    GridBasedDijkstra:
+      plugin: "nav2_navfn_planner/NavfnPlanner"
+      use_astar: false
       tolerance: 0.5

@@ -1,0 +1,29 @@
+<launch>
+    <arg name="use_sim_time" default="true"/>
+
+    <let name="map_path" value="$(find-pkg-share my_robot_navigation)/maps/my_living.yaml" />
+
+    <include file="$(find-pkg-share my_robot_navigation)/launch/localization.launch.xml">
+        <arg name="use_sim_time" value="$(var use_sim_time)"/>
+        <arg name="map" value="$(var map_path)"/>
+    </include>
+    
+    <node pkg="nav2_planner" exec="planner_server" name="planner_server" output="screen">
+        <param from="$(find-pkg-share my_robot_navigation)/config/planner.yaml"/>
+        <param from="$(find-pkg-share my_robot_navigation)/config/costmap.yaml"/>
+    </node>
+
+    <node pkg="nav2_controller" exec="controller_server" name="controller_server" output="screen">
+        <param from="$(find-pkg-share my_robot_navigation)/config/controller.yaml"/>
+        <param from="$(find-pkg-share my_robot_navigation)/config/costmap.yaml"/>
+    </node>
+
+
+    <node pkg="nav2_lifecycle_manager" exec="lifecycle_manager" name="lifecycle_manager_navigation">
+         <param name="use_sim_time" value="$(var use_sim_time)"/>
+        <param name="autostart" value="true"/>
+
+        <param name="node_names"
+            value="['map_server','amcl','planner_server','controller_server']"/>
+    </node>
+</launch>
