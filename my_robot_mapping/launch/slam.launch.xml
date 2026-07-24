@@ -25,6 +25,5 @@
         <param name="use_sim_time" value="$(var use_sim_time)" />
         <param name="autostart" value="true" />
         <param name="node_names" value="['map_saver_server', 'slam_toolbox']" />
-        <param name="bond_timeout" value="10.0"/>
     </node>
 </launch>
