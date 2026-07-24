@@ -2,9 +2,14 @@
   	<set_env name="GZ_SIM_RESOURCE_PATH"
            value="$(find-pkg-share my_robot_description)/.."/>
 
-	<let name="x_pos" value="1.3044"/>
-	<let name="y_pos" value="-7.2093"/>
-	<let name="yaw" value="1.5708"/>
+	<!-- LIVING (entrega principal) -->
+	<!-- <let name="x_pos" value="1.3044"/> -->
+	<!-- <let name="y_pos" value="-7.2093"/> -->
+	<!-- <let name="yaw" value="1.5708"/> -->
+	<!-- WAREHOUSE (mapeo) -->
+	<let name="x_pos" value="9.4950"/>
+	<let name="y_pos" value="7.2508"/>
+	<let name="yaw" value="0.0"/>
 
 	<!-- Rutas a los archivos -->
 	<let name="urdf_path"
@@ -14,9 +19,15 @@
 	<let name="gazebo_bridge_path"
 		value="$(find-pkg-share my_robot_bringup)/config/gazebo_bridge.yaml"/>
 	
-	<let name="world_path"
-		value="$(find-pkg-share my_robot_bringup)/worlds/my_living.sdf"/>
+	<!-- LIVING (entrega principal) -->
+	<!-- <let name="world_path"
+		value="$(find-pkg-share my_robot_bringup)/worlds/my_living.sdf"/>  -->
 
+	<!-- WAREHOUSE (mapeo) -->
+	<let name="world_path"
+		value="$(find-pkg-share my_robot_bringup)/worlds/warehouse_world.sdf"/>
+
+	<!-- maze (laberinto) -->
 	<!-- <let name="world_path"
 		value="$(find-pkg-share my_robot_bringup)/worlds/maze.world"/> -->
 
