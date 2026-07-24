@@ -6,7 +6,7 @@
   <arg name="controller_id" default="FollowPathRPP" description="ID del algoritmo del controller de Nav2"/>
 
   <!-- Nodo Orquestador -->
-  <node package="my_nav_orchestrator" exec="orchestrator_node" name="nav_orchestrator" output="screen">
+  <node pkg="my_robot_orchestrator" exec="orchestrator_node" name="nav_orchestrator" output="screen">
     <!-- Parámetros pasados al nodo -->
     <param name="use_sim_time" value="$(var use_sim_time)"/>
     <param name="replanning_frequency" value="$(var replanning_frequency)"/>
