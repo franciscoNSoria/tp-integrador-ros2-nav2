@@ -1,5 +1,10 @@
 <launch>
     <arg name="use_sim_time" default="true"/>
+    <set_parameter name="use_sim_time" value="$(var use_sim_time)" />
+    
+    <!-- <include file="$(find-pkg-share my_robot_bringup)/launch/bringup.launch.xml">
+        <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    </include> -->
 
     <let name="map_path" value="$(find-pkg-share my_robot_mapping)/maps/my_living.yaml" />
     <!-- <let name="map_path" value="$(find-pkg-share my_robot_mapping)/maps/warehouse_world.yaml" /> -->
