@@ -4,11 +4,11 @@ planner_server:
     use_sim_time: true
     
     GridBasedAStar:
-      plugin: "nav2_navfn_planner/NavfnPlanner"
+      plugin: "nav2_navfn_planner::NavfnPlanner"
       use_astar: true
       tolerance: 0.5
 
     GridBasedDijkstra:
-      plugin: "nav2_navfn_planner/NavfnPlanner"
+      plugin: "nav2_navfn_planner::NavfnPlanner"
       use_astar: false
       tolerance: 0.5

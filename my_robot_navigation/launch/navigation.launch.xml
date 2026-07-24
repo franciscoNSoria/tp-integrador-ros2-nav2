@@ -1,7 +1,7 @@
 <launch>
     <arg name="use_sim_time" default="true"/>
 
-    <let name="map_path" value="$(find-pkg-share my_robot_navigation)/maps/my_living.yaml" />
+    <let name="map_path" value="$(find-pkg-share my_robot_mapping)/maps/my_living.yaml" />
     <!-- <let name="map_path" value="$(find-pkg-share my_robot_mapping)/maps/warehouse_world.yaml" /> -->
 
     <node pkg="nav2_map_server" exec="map_server" name="map_server" output="screen">
@@ -28,7 +28,7 @@
         <param from="$(find-pkg-share my_robot_navigation)/config/bt.yaml"/>
     </node>
 
-    <node pkg="nav2_behavior_tree" exec="behavior_server" name="behavior_server" output="screen">
+    <node pkg="nav2_behaviors" exec="behavior_server" name="behavior_server" output="screen">
         <param from="$(find-pkg-share my_robot_navigation)/config/behavior.yaml"/>
     </node>
 
@@ -37,6 +37,6 @@
         <param name="autostart" value="true"/>
 
         <param name="node_names"
-            value="['map_server','amcl','planner_server','controller_server', 'bt_navigation', 'behavior_server']"/>
+            value="['map_server','amcl','planner_server','controller_server', 'bt_navigator', 'behavior_server']"/>
     </node>
 </launch>

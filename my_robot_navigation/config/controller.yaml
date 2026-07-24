@@ -32,6 +32,23 @@ controller_server:
       acc_lim_x: 2.5
       acc_lim_theta: 3.2
 
+      critics: [
+        "dwb_critics::RotateToGoalCritic",
+        "dwb_critics::OscillationCritic",
+        "dwb_critics::BaseObstacleCritic",
+        "dwb_critics::GoalDistCritic",
+        "dwb_critics::GoalAlignCritic",
+        "dwb_critics::PathDistCritic",
+        "dwb_critics::PathAlignCritic"
+      ]
+
+      BaseObstacle.scale: 0.02
+      PathCritic.scale: 32.0
+      GoalCritic.scale: 24.0
+      PathAlign.scale: 32.0
+      GoalAlign.scale: 24.0
+      RotateToGoal.scale: 32.0
+
     # Algoritmo 2: Regulated Pure Pursuit (RPP)
     FollowPathRPP:
       plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
