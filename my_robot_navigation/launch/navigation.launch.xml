@@ -6,42 +6,21 @@
         <arg name="use_sim_time" value="$(var use_sim_time)"/>
     </include> -->
 
-    <let name="map_path" value="$(find-pkg-share my_robot_mapping)/maps/my_living.yaml" />
-    <!-- <let name="map_path" value="$(find-pkg-share my_robot_mapping)/maps/warehouse_world.yaml" /> -->
-
-    <node pkg="nav2_map_server" exec="map_server" name="map_server" output="screen">
-        <param name="yaml_filename" value="$(var map_path)"/>
-        <param name="use_sim_time" value="$(var use_sim_time)"/>
-    </node>
-
-    <node pkg="nav2_amcl" exec="amcl" name="amcl" output="screen">
-        <param from="$(find-pkg-share my_robot_localization)/config/amcl.yaml"/>
-        <param name="use_sim_time" value="$(var use_sim_time)"/>
-    </node>
-    
     <node pkg="nav2_planner" exec="planner_server" name="planner_server" output="screen">
         <param from="$(find-pkg-share my_robot_navigation)/config/planner.yaml"/>
         <param from="$(find-pkg-share my_robot_navigation)/config/global_costmap.yaml"/>
+        <param name="use_sim_time" value="$(var use_sim_time)"/>
     </node>
 
     <node pkg="nav2_controller" exec="controller_server" name="controller_server" output="screen">
         <param from="$(find-pkg-share my_robot_navigation)/config/controller.yaml"/>
         <param from="$(find-pkg-share my_robot_navigation)/config/local_costmap.yaml"/>
-    </node>
-
-    <node pkg="nav2_bt_navigator" exec="bt_navigator" name="bt_navigator" output="screen">
-        <param from="$(find-pkg-share my_robot_navigation)/config/bt.yaml"/>
-    </node>
-
-    <node pkg="nav2_behaviors" exec="behavior_server" name="behavior_server" output="screen">
-        <param from="$(find-pkg-share my_robot_navigation)/config/behavior.yaml"/>
+        <param name="use_sim_time" value="$(var use_sim_time)"/>
     </node>
 
     <node pkg="nav2_lifecycle_manager" exec="lifecycle_manager" name="lifecycle_manager_navigation">
         <param name="use_sim_time" value="$(var use_sim_time)"/>
         <param name="autostart" value="true"/>
-
-        <param name="node_names"
-            value="['map_server','amcl','planner_server','controller_server', 'bt_navigator', 'behavior_server']"/>
+        <param name="node_names" value="['planner_server','controller_server']"/>
     </node>
 </launch>
