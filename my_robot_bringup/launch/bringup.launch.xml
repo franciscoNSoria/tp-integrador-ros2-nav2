@@ -2,8 +2,9 @@
   	<set_env name="GZ_SIM_RESOURCE_PATH"
            value="$(find-pkg-share my_robot_description)/.."/>
 
-	<let name="x_pos" value="0.0017"/>
+	<let name="x_pos" value="1.3044"/>
 	<let name="y_pos" value="-7.2093"/>
+	<let name="yaw" value="1.5708"/>
 
 	<!-- Rutas a los archivos -->
 	<let name="urdf_path"
@@ -40,7 +41,7 @@
 
 	<!-- 3. Spawn: carga el modelo del robot en Gazebo -->
 	<node pkg="ros_gz_sim" exec="create"
-		args="-topic robot_description -x $(var x_pos) -y $(var y_pos)"/>
+		args="-topic robot_description -x $(var x_pos) -y $(var y_pos) -Y $(var yaw)"/>
 	
 	<!-- args="-topic robot_description -x 1.3044 -y -7.2093 -z -0.0 -Y 1.5708"/> -->
 	<!-- -x 4.500 -y -4.050 -z -0.0017 -Y 3.14159 (maze_2.world)  -->
@@ -52,8 +53,9 @@
 
 	<!-- 5. RViz: visualizacion -->
 	<node pkg="rviz2" exec="rviz2" output="screen"
-			args="-d $(var rviz_config_path)"/>
-
+        args="-d $(var rviz_config_path)">
+    	<param name="use_sim_time" value="true"/>
+	</node>
 	<let name="ekf_config_path"
 		value="$(find-pkg-share my_robot_bringup)/config/ekf.yaml"/>
 

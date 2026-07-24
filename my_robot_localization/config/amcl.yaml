@@ -13,8 +13,8 @@ amcl:
       #Pose incial desde donde arranca el robot en el mapa.
       set_initial_pose: True  #amcl arranca teniendo en cuenta esta pose.
       initial_pose:
-        x: 0.0017
-        y: -7.2093
+        x: 0.0
+        y: 0.0
         z: 0.0
         yaw: 0.0
 
