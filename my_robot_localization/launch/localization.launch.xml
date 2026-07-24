@@ -18,7 +18,7 @@
         <param name="use_sim_time" value="$(var use_sim_time)"/>
     </node>
 
-    <node pkg="nav2_lifecycle_manager" exec="lifecycle_manager" name="lifecycle_manager_navigation">
+    <node pkg="nav2_lifecycle_manager" exec="lifecycle_manager" name="lifecycle_manager_localization">
         <param name="use_sim_time" value="$(var use_sim_time)"/>
         <param name="autostart" value="true"/>
 

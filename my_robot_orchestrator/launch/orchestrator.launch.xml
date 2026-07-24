@@ -2,7 +2,7 @@
   <!-- Declaración de Argumentos de Lanzamiento -->
   <arg name="use_sim_time" default="true" description="Usar tiempo de simulación (Gazebo/Ignition)"/>
   <arg name="replanning_frequency" default="1.0" description="Frecuencia de replanificación en Hz"/>
-  <arg name="planner_id" default="GridBased" description="ID del algoritmo del planner de Nav2"/>
+  <arg name="planner_id" default="GridBasedAStar" description="ID del algoritmo del planner de Nav2"/>
   <arg name="controller_id" default="FollowPathRPP" description="ID del algoritmo del controller de Nav2"/>
 
   <!-- Nodo Orquestador -->
