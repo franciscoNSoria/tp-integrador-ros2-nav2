@@ -5,7 +5,11 @@ controller_server:
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
-    failure_tolerance: 0.3
+    # subido de 0.3 a 3.0: le da tiempo a la replanificacion periodica del
+    # orquestador (Fase 6, corre a ~1Hz) a mandar un path nuevo antes de que
+    # el controller_server tire la toalla si RPP/DWB se quedan frenados
+    # frente a un obstaculo que bloquea el path
+    failure_tolerance: 3.0
     progress_checker_plugins: ["progress_checker"]
     goal_checker_plugins: ["general_goal_checker"]
     # Dos algoritmos registrados a la vez bajo distinto nombre. No hace falta elegir

@@ -3,7 +3,7 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-
+    
     orquestador = Node(
         package='my_robot_navigation',
         executable='orquestador_node',

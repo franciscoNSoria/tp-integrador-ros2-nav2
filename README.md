@@ -8,30 +8,30 @@ source install/setup.bash
 ```
 
 
-### Terminal 1 — Simulación + SLAM
+### Terminal 1 — Simulación + Localización (mapa ya construido)
 
 ```bash
-ros2 launch my_robot_navigation slam.launch.py
+ros2 launch my_robot_navigation localization.launch.py
 ```
 
-Este launch ya incluye la simulación (Gazebo) y RViz (con la config de `rviz/nav.rviz`), no hace falta lanzar nada de eso aparte.
+Este launch ya incluye la simulación (Gazebo) y RViz (con la config de `rviz/nav.rviz`), no
+hace falta lanzar nada de eso aparte. Usa el mapa `maps/my_living.yaml` (el de la Parte 1)
+vía `map_server` + `amcl` — el robot navega sobre el mapa ya construido, cubre `13.5m x 9.4m`.
 
-### Terminal 2 — Planner (costmap global + planificador)
+> Si en cambio querés mapear de cero (sin el mapa de la Parte 1), usá
+> `ros2 launch my_robot_navigation slam.launch.py` en vez de este — mismo rol, pero arranca
+> con el mapa vacío y lo construye en vivo a medida que el robot se mueve.
+
+### Terminal 2 — Navegación (planner + controller)
 
 ```bash
-ros2 launch my_robot_navigation planner.launch.py
+ros2 launch my_robot_navigation navigation.launch.py
 ```
 
-### Terminal 3 — Controller (costmap local + controller_server)
+Incluye `planner.launch.py` + `controller.launch.py` juntos (si querés lanzarlos por separado
+para debuggear uno solo, están disponibles individualmente con esos mismos nombres).
 
-```bash
-ros2 launch my_robot_navigation controller.launch.py
-```
-
-> Atajo: `ros2 launch my_robot_navigation navigation.launch.py` levanta planner + controller
-> juntos en una sola terminal (reemplaza las Terminales 2 y 3 de arriba).
-
-### Terminal 4 — Orquestador
+### Terminal 3 — Orquestador
 
 ```bash
 ros2 launch my_robot_navigation orquestador.launch.py
